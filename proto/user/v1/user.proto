@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package user.v1;
+
+option go_package = "github.com/nalrematvonesah/user.proto/gen/user/v1;userv1";
+
+// UserService manages user accounts and their vehicles.
+service UserService {
+  rpc Register(RegisterRequest) returns (UserResponse);
+  rpc Login(LoginRequest) returns (UserResponse);
+  rpc Logout(UserRequest) returns (Empty);
+
+  rpc AddVehicle(AddVehicleRequest) returns (Empty);
+  rpc DeleteVehicle(DeleteVehicleRequest) returns (Empty);
+  rpc GetVehicles(UserRequest) returns (VehicleList);
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message UserResponse {
+  int64 user_id = 1;
+}
+
+message UserRequest {
+  int64 user_id = 1;
+}
+
+message AddVehicleRequest {
+  int64 user_id = 1;
+  string plate_number = 2;
+}
+
+message DeleteVehicleRequest {
+  int64 user_id = 1;
+  string plate_number = 2;
+}
+
+message VehicleList {
+  repeated string vehicles = 1;
+}
+
+message Empty {}
